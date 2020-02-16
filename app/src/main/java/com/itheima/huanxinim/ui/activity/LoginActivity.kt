@@ -1,7 +1,6 @@
 package com.itheima.huanxinim.ui.activity
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import com.itheima.huanxinim.R
@@ -20,6 +19,7 @@ class LoginActivity : BaseActivity(),LoginContract.View{
 
     override fun init() {
         super.init()
+        newUser.setOnClickListener { startActivity<RegisterActivity>() }
         login.setOnClickListener { login() }
         password.setOnEditorActionListener { textView, i, keyEvent ->
             login()
@@ -84,7 +84,6 @@ class LoginActivity : BaseActivity(),LoginContract.View{
         }else{
             toast("用户拒绝权限")
         }
-
     }
 
 }
