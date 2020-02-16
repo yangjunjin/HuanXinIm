@@ -84,6 +84,7 @@ class LoginActivity : BaseActivity(),LoginContract.View{
         }else{
             toast("用户拒绝权限")
         }
+
     }
 
 }
