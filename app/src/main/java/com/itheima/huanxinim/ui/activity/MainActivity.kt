@@ -1,7 +1,5 @@
 package com.itheima.huanxinim.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.base.BaseActivity
 import com.itheima.huanxinim.factory.FragmentFactory

@@ -2,7 +2,7 @@ package com.itheima.huanxinim.factory
 import androidx.fragment.app.Fragment
 import com.itheima.huanxinim.R
 
-import com.itheima.huanxinim.ui.fragment.ContactFragment
+import com.itheima.huanxinim.ui.fragment.ContactsFragment
 import com.itheima.huanxinim.ui.fragment.ConversationFragment
 import com.itheima.huanxinim.ui.fragment.DynamicFragment
 
@@ -12,7 +12,7 @@ import com.itheima.huanxinim.ui.fragment.DynamicFragment
  */
 class FragmentFactory private constructor(){
     val conversation by lazy { ConversationFragment() }
-    val contact by lazy { ContactFragment() }
+    val contact by lazy { ContactsFragment() }
     val dynamic by lazy { DynamicFragment() }
 
     companion object{val instance = FragmentFactory()}
