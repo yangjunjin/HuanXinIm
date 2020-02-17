@@ -14,6 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        ndk{
+//            abiFilter 'armeabi','armeabi-v7a','arm64-v8a','x86'
+//        }
+
     }
     buildTypes {
         release {
@@ -25,6 +30,10 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+
+    android {
+        useLibrary 'org.apache.http.legacy'
     }
 }
 
@@ -46,7 +55,14 @@ dependencies {
     //implementation "com.squareup.okhttp3:okhttp:4.3.1"
     //数据解析
     implementation 'com.google.code.gson:gson:2.8.6'
-
+    //环信及时聊天
     implementation files('libs/hyphenatechat_3.6.4.jar')
-    //compile files('libs/hyphenatechat_3.6.4.jar')
+    //Bmob后台服务器
+    implementation 'cn.bmob.android:bmob-sdk:3.7.3-rc1'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.squareup.okio:okio:2.1.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+
 }
