@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.adapter.ContactListAdapter
 import com.itheima.huanxinim.base.BaseFragment
+import com.itheima.huanxinim.contract.ContactsContract
+import com.itheima.huanxinim.presenter.ContactsPresenter
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.support.v4.toast
@@ -13,7 +15,9 @@ import org.jetbrains.anko.support.v4.toast
  * author : yangjunjin
  * date : 2020/2/17 14:54
  */
-class ContactsFragment : BaseFragment() {
+class ContactsFragment : BaseFragment(), ContactsContract.View {
+
+    val presenter = ContactsPresenter(this)
     override fun getLayoutResId(): Int {
         return R.layout.fragment_contacts
     }
@@ -25,8 +29,9 @@ class ContactsFragment : BaseFragment() {
         add.setOnClickListener { toast("添加联系人") }
 
         swipeRefreshLayout.apply {
-            setColorSchemeResources(R.color.colorAccent)
             isRefreshing = true
+            setColorSchemeResources(R.color.colorAccent)
+            setOnRefreshListener { presenter.loadContacts() }
         }
 
         recyclerView.apply {
@@ -34,5 +39,17 @@ class ContactsFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = ContactListAdapter(context)
         }
+
+        presenter.loadContacts()
+    }
+
+    override fun onLoadContactsSuccess() {
+        swipeRefreshLayout.isRefreshing = false
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onLoadContactsFailed() {
+        toast("联系人加载失败")
+        swipeRefreshLayout.isRefreshing = false
     }
 }
