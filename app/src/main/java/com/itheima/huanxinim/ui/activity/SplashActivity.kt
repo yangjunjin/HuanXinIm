@@ -38,5 +38,6 @@ class SplashActivity : BaseActivity(), SplashContract.View {
     //已经登陆的处理
     override fun onLoggedIn() {
         startActivity<MainActivity>()
+        finish()
     }
 }

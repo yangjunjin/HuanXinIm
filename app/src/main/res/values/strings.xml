@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HuanXinIM</string>
+    <string name="login_out">退(%s)出</string>
 </resources>

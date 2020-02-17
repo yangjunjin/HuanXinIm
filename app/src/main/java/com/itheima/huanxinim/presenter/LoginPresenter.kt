@@ -1,6 +1,7 @@
 package com.itheima.huanxinim.presenter
 
 import android.media.MediaPlayer
+import android.util.Log
 import com.hyphenate.chat.EMClient
 import com.itheima.huanxinim.adapter.EMCallBackAdapter
 import com.itheima.huanxinim.contract.LoginContract
@@ -30,6 +31,7 @@ class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
      * IM的登陆
      */
     private fun loginEaseMob(userName: String, password: String) {
+        Log.e("loginEaseMob=","登陆")
         EMClient.getInstance().login(userName,password,object :EMCallBackAdapter(){
             override fun onSuccess() {
                 super.onSuccess()
@@ -37,10 +39,12 @@ class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
                 EMClient.getInstance().chatManager().loadAllConversations()
                 //回调在主线程
                uiThread { view.onLoggedInSuccess() }
+                Log.e("loginEaseMob=","登陆成功")
             }
 
             override fun onError(p0: Int, p1: String?) {
                 super.onError(p0, p1)
+                Log.e("loginEaseMob=","登陆失败")
                 uiThread { view.onLoggedInFailed() }
             }
         })
