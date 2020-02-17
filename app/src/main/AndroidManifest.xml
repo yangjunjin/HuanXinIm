@@ -36,7 +36,7 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.FullScreen"
             tools:ignore="GoogleAppIndexingWarning"
             android:name=".app.IMApplication">
 
@@ -80,6 +80,7 @@
                   android:theme="@style/AppTheme.FullScreen"/>
         <activity android:name=".ui.activity.RegisterActivity"/>
         <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.ChatActivity"/>
     </application>
 
 </manifest>
