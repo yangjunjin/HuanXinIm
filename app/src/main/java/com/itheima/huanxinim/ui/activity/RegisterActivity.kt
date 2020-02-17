@@ -58,9 +58,9 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     }
 
     override fun onRegisterSuccess() {
+        toast("注册成功")
         dismissProgress()
         finish()
-
     }
 
     override fun onRegisterFailed() {
