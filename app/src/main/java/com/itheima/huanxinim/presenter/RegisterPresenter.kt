@@ -45,7 +45,13 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
                     registerEaseMob(userName, password)
                 } else {
                     //注册失败
-                    uiThread {  view.onRegisterFailed() }
+                    uiThread {
+                        if (p1.errorCode == 202) {
+                            view.onUserExit()
+                        } else {
+                            view.onRegisterFailed()
+                        }
+                    }
                 }
             }
         })
@@ -56,10 +62,10 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
         doAsync {
             try {
                 //注册失败会抛出异常
-                EMClient.getInstance().createAccount(userName,password)
-                uiThread {  view.onRegisterSuccess() }
+                EMClient.getInstance().createAccount(userName, password)
+                uiThread { view.onRegisterSuccess() }
             } catch (e: HyphenateException) {
-                uiThread {  view.onRegisterFailed() }
+                uiThread { view.onRegisterFailed() }
             }
         }
     }

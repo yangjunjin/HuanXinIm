@@ -18,6 +18,7 @@ import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseActivity(), RegisterContract.View {
 
+
     val presenter = RegisterPresenter(this)
     override fun getLayoutResId(): Int {
         return R.layout.activity_register
@@ -66,5 +67,10 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     override fun onRegisterFailed() {
         dismissProgress()
         toast("注册失败")
+    }
+
+    override fun onUserExit() {
+        dismissProgress()
+        toast("用户已经存在")
     }
 }
