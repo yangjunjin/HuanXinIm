@@ -5,4 +5,6 @@
     <string name="ok">确定</string>
     <string name="delete_friend">是否删除%s好友</string>
     <string name="delete_friend_tip">删除好友</string>
+    <string name="success">成功</string>
+    <string name="error">失败</string>
 </resources>
