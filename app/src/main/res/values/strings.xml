@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HuanXinIM</string>
     <string name="login_out">退(%s)出</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="delete_friend">是否删除%s好友</string>
+    <string name="delete_friend_tip">删除好友</string>
 </resources>
