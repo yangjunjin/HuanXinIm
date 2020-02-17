@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+            id="@+id/tab_conversation"
+            title="首页"
+            icon="@mipmap/nav_home"/>
+    <tab
+            id="@+id/tab_contacts"
+            title="MV"
+            icon="@mipmap/nav_message"/>
+    <tab
+            id="@+id/tab_dynamic"
+            title="V榜"
+            icon="@mipmap/nav_me"/>
+</tabs>
