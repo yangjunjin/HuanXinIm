@@ -41,7 +41,7 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = ContactListAdapter(context,presenter.contactListItems)
+            adapter = ContactListAdapter(context, presenter.contactListItems)
         }
 
         //删除好友监听，刷新列表
@@ -52,10 +52,11 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
         })
 
         //SlideBar的监听
-        slideBar.onSectionChangeListener=object :SlideBar.OnSectionChangeListener{
+        slideBar.onSectionChangeListener = object : SlideBar.OnSectionChangeListener {
             override fun onSectionChange(firstLetter: String) {
                 section.visibility = View.VISIBLE
                 section.text = firstLetter
+                recyclerView.smoothScrollToPosition(getPosition(firstLetter))
             }
 
             override fun onSlideFinish() {
@@ -65,6 +66,14 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
 
         presenter.loadContacts()
     }
+
+    /**
+     * 查找到这个字母所在的位置
+     */
+    private fun getPosition(firstLetter: String): Int =
+        presenter.contactListItems.binarySearch { contactListItem ->
+            contactListItem.firstLetter.minus(firstLetter[0])
+        }
 
     override fun onLoadContactsSuccess() {
         swipeRefreshLayout?.isRefreshing = false
