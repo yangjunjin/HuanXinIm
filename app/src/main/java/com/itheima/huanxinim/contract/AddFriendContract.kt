@@ -6,14 +6,11 @@ package com.itheima.huanxinim.contract
  */
 interface AddFriendContract {
     interface Presenter : BasePresenter {
-        //fun login(userName: String, password: String)
+        fun search(key: String)
     }
 
     interface View {
-//        fun onUserNameError()
-//        fun onPassWordError()
-//        fun onStartLogin()
-//        fun onLoggedInSuccess()
-//        fun onLoggedInFailed()
+        fun onSearchSuccess()
+        fun onSearchError()
     }
 }

@@ -17,4 +17,8 @@ import com.itheima.huanxinim.extentions.isValidUserName
  */
 class AddFriendPresenter(val view: AddFriendContract.View) : AddFriendContract.Presenter {
 
+    override fun search(key: String) {
+
+
+    }
 }
