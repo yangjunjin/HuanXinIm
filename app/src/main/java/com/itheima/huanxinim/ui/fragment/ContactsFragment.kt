@@ -2,8 +2,11 @@ package com.itheima.huanxinim.ui.fragment
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hyphenate.EMContactListener
+import com.hyphenate.chat.EMClient
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.adapter.ContactListAdapter
+import com.itheima.huanxinim.adapter.EMContactListenerAdapter
 import com.itheima.huanxinim.base.BaseFragment
 import com.itheima.huanxinim.contract.ContactsContract
 import com.itheima.huanxinim.presenter.ContactsPresenter
@@ -39,6 +42,13 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
             layoutManager = LinearLayoutManager(context)
             adapter = ContactListAdapter(context,presenter.contactListItems)
         }
+
+        //删除好友监听，刷新列表
+        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
+            override fun onContactDeleted(p0: String?) {
+                presenter.loadContacts()
+            }
+        })
 
         presenter.loadContacts()
     }

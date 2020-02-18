@@ -21,6 +21,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <TextView
                 android:id="@+id/section"
                 android:layout_width="wrap_content"
@@ -28,10 +29,18 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="18sp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorAccent"
                 android:padding="8dp"
                 android:visibility="visible"
                 android:text="A"/>
+
+        <com.itheima.huanxinim.widget.SlideBar
+                android:id="@+id/slideBar"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
     </FrameLayout>
 
 </LinearLayout>
