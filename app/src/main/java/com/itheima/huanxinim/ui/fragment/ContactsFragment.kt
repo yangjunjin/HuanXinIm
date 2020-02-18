@@ -10,9 +10,11 @@ import com.itheima.huanxinim.adapter.EMContactListenerAdapter
 import com.itheima.huanxinim.base.BaseFragment
 import com.itheima.huanxinim.contract.ContactsContract
 import com.itheima.huanxinim.presenter.ContactsPresenter
+import com.itheima.huanxinim.ui.activity.AddFriendActivity
 import com.itheima.huanxinim.widget.SlideBar
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.header.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -30,7 +32,9 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
         super.init()
         headerTitle.text = "联系人"
         add.visibility = View.VISIBLE
-        add.setOnClickListener { toast("添加联系人") }
+        add.setOnClickListener {
+            context?.startActivity<AddFriendActivity>()
+        }
 
         swipeRefreshLayout.apply {
             isRefreshing = true

@@ -23,7 +23,8 @@ abstract class BaseActivity : AppCompatActivity() {
         init()
     }
 
-    open fun init() {}
+    open fun init() {
+    }
 
     abstract fun getLayoutResId(): Int
 
