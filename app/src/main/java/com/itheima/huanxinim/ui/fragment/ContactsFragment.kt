@@ -10,6 +10,7 @@ import com.itheima.huanxinim.adapter.EMContactListenerAdapter
 import com.itheima.huanxinim.base.BaseFragment
 import com.itheima.huanxinim.contract.ContactsContract
 import com.itheima.huanxinim.presenter.ContactsPresenter
+import com.itheima.huanxinim.widget.SlideBar
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.support.v4.toast
@@ -49,6 +50,18 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
                 presenter.loadContacts()
             }
         })
+
+        //SlideBar的监听
+        slideBar.onSectionChangeListener=object :SlideBar.OnSectionChangeListener{
+            override fun onSectionChange(firstLetter: String) {
+                section.visibility = View.VISIBLE
+                section.text = firstLetter
+            }
+
+            override fun onSlideFinish() {
+                section.visibility = View.GONE
+            }
+        }
 
         presenter.loadContacts()
     }

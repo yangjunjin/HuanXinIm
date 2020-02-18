@@ -4,21 +4,20 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.annotation.RequiresApi
 import com.itheima.huanxinim.R
-import kotlinx.android.synthetic.main.fragment_contacts.view.*
+import kotlinx.android.synthetic.main.view_contact_item.view.*
+import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.sp
 
 /**
  * author : yangjunjin
  * date : 2020/2/18 13:46
  */
-class SlideBar(context: Context?, attrs: AttributeSet?) : View(context, attrs){
+class SlideBar(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     var sectionHeight = 0.0f
     var textBaseline = 0f
@@ -52,10 +51,10 @@ class SlideBar(context: Context?, attrs: AttributeSet?) : View(context, attrs){
         //计算准线
         textBaseline = sectionHeight / 2 + (textHeight / 2 - fontMetrics.descent)
 
-        Log.e("textBaseline1",textBaseline.toString())
-        Log.e("textBaseline2",(textHeight / 2).toString())
-        Log.e("textBaseline3",fontMetrics.descent.toString())
-        Log.e("textBaseline4",textHeight.toString())
+        Log.e("textBaseline1", textBaseline.toString())
+        Log.e("textBaseline2", (textHeight / 2).toString())
+        Log.e("textBaseline3", fontMetrics.descent.toString())
+        Log.e("textBaseline4", textHeight.toString())
     }
 
     //绘制所有的字母
@@ -70,10 +69,41 @@ class SlideBar(context: Context?, attrs: AttributeSet?) : View(context, attrs){
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action){
-            MotionEvent.ACTION_DOWN->setBackgroundResource(R.drawable.bg_slide_bar)
-            MotionEvent.ACTION_UP->setBackgroundColor(Color.TRANSPARENT)
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                setBackgroundResource(R.drawable.bg_slide_bar)
+                getTouchFirstLetter(event)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                getTouchFirstLetter(event)
+            }
+            MotionEvent.ACTION_UP -> {
+                setBackgroundColor(Color.TRANSPARENT)
+                context.runOnUiThread { onSectionChangeListener?.onSlideFinish() }
+            }
         }
         return true
+    }
+
+    //找到点击的字母
+    private fun getTouchFirstLetter(event: MotionEvent): Int {
+        var index = (event.y / sectionHeight).toInt()
+        if (index < 0) {
+            index = 0
+        } else if (index >= SELECTIONS.size) {
+            index = SELECTIONS.size - 1
+        }
+        val firstLetter = SELECTIONS[index]
+        Log.e("选中的字母==", firstLetter)
+        context.runOnUiThread { onSectionChangeListener?.onSectionChange(firstLetter) }
+        return index
+    }
+
+    var onSectionChangeListener: OnSectionChangeListener? = null
+
+    //接口回调
+    interface OnSectionChangeListener {
+        fun onSectionChange(firstLetter: String)
+        fun onSlideFinish()//完成的回调
     }
 }

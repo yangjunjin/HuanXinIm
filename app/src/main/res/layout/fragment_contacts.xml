@@ -28,10 +28,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="80sp"
                 android:textColor="@color/colorAccent"
-                android:padding="8dp"
-                android:visibility="visible"
+                android:textStyle="bold"
+                android:visibility="gone"
                 android:text="A"/>
 
         <com.itheima.huanxinim.widget.SlideBar
