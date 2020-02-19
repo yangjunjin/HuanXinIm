@@ -21,6 +21,8 @@ import org.jetbrains.anko.toast
 class ChatActivity : BaseActivity(), ChatContract.View{
 
     val presenter = ChatPresenter(this)
+    lateinit var username:String
+
     override fun getLayoutResId(): Int {
         return R.layout.activity_chat
     }
@@ -29,6 +31,14 @@ class ChatActivity : BaseActivity(), ChatContract.View{
         super.init()
         initHeader()
         initEditText()
+        send.setOnClickListener { send() }
+    }
+
+    //发送消息
+    fun send(){
+        hideSoftKeyboard()
+        var message= edit.text.toString().trim()
+        presenter.sendMessage(username,message)
     }
 
     //初始化发送的按钮
@@ -38,13 +48,18 @@ class ChatActivity : BaseActivity(), ChatContract.View{
              send.isEnabled = !p0.isNullOrEmpty()
             }
         })
+
+        edit.setOnEditorActionListener { textView, i, keyEvent ->
+            send()
+            true
+        }
     }
 
     //初始化头部
     private fun initHeader() {
         back.setOnClickListener { finish() }
         //获取聊天的用户名
-        val username = intent.getStringExtra("userName")
+        username = intent.getStringExtra("userName")
         val titleString = String.format(getString(R.string.chat_with),username)
         headerTitle.text = titleString
     }
