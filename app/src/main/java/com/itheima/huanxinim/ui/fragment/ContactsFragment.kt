@@ -2,7 +2,6 @@ package com.itheima.huanxinim.ui.fragment
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hyphenate.EMContactListener
 import com.hyphenate.chat.EMClient
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.adapter.ContactListAdapter
@@ -30,37 +29,17 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
 
     override fun init() {
         super.init()
-        headerTitle.text = "联系人"
-        add.visibility = View.VISIBLE
-        add.setOnClickListener {
-            context?.startActivity<AddFriendActivity>()
-        }
-
-        swipeRefreshLayout.apply {
-            isRefreshing = true
-            setColorSchemeResources(R.color.colorAccent)
-            setOnRefreshListener { presenter.loadContacts() }
-        }
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = ContactListAdapter(context, presenter.contactListItems)
-        }
-
+        initHeader()
+        initSwipeRefreshLayout()
+        initRecyclerView()
         //删除好友监听，刷新列表
-        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
-            override fun onContactDeleted(p0: String?) {
-                presenter.loadContacts()
-            }
+        EMClient.getInstance().contactManager().setContactListener(contactListener)
+        initSlideBar()
+        presenter.loadContacts()
+    }
 
-            //别人添加的消息的回调
-            override fun onContactAdded(p0: String?) {
-                presenter.loadContacts()
-            }
-        })
-
-        //SlideBar的监听
+    //SlideBar的监听
+    private fun initSlideBar() {
         slideBar.onSectionChangeListener = object : SlideBar.OnSectionChangeListener {
             override fun onSectionChange(firstLetter: String) {
                 section.visibility = View.VISIBLE
@@ -72,8 +51,41 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
                 section.visibility = View.GONE
             }
         }
+    }
 
-        presenter.loadContacts()
+    val contactListener = object : EMContactListenerAdapter() {
+        override fun onContactDeleted(p0: String?) {
+            presenter.loadContacts()
+        }
+
+        //别人添加的消息的回调
+        override fun onContactAdded(p0: String?) {
+            presenter.loadContacts()
+        }
+    }
+
+    private fun initRecyclerView() {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = ContactListAdapter(context, presenter.contactListItems)
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        swipeRefreshLayout.apply {
+            isRefreshing = true
+            setColorSchemeResources(R.color.colorAccent)
+            setOnRefreshListener { presenter.loadContacts() }
+        }
+    }
+
+    private fun initHeader() {
+        headerTitle.text = "联系人"
+        add.visibility = View.VISIBLE
+        add.setOnClickListener {
+            context?.startActivity<AddFriendActivity>()
+        }
     }
 
     /**
@@ -92,5 +104,10 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
     override fun onLoadContactsFailed() {
         toast("联系人加载失败")
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EMClient.getInstance().contactManager().removeContactListener(contactListener)
     }
 }
