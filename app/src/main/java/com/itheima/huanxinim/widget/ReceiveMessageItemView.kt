@@ -11,7 +11,7 @@ import com.itheima.huanxinim.R
  * date : 2020/2/19 16:04
  * 接收消息的View
  */
-class ReceiverMessageItemView(context: Context?, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
+class ReceiveMessageItemView(context: Context?, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
     init {
         View.inflate(context, R.layout.view_receive_message_item,this)
     }

@@ -5,7 +5,9 @@ import android.content.pm.PackageManager
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.itheima.huanxinim.R
+import com.itheima.huanxinim.adapter.MessageListAdapter
 import com.itheima.huanxinim.adapter.TextWatcherAdapter
 import com.itheima.huanxinim.base.BaseActivity
 import com.itheima.huanxinim.contract.ChatContract
@@ -31,7 +33,16 @@ class ChatActivity : BaseActivity(), ChatContract.View{
         super.init()
         initHeader()
         initEditText()
+        initRecyclerView()
         send.setOnClickListener { send() }
+    }
+
+    private fun initRecyclerView() {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager=LinearLayoutManager(context)
+            adapter = MessageListAdapter(context,presenter.messages)
+        }
     }
 
     //发送消息
