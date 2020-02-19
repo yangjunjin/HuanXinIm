@@ -9,4 +9,6 @@
     <string name="error">失败</string>
     <string name="search">搜索中。。。</string>
     <string name="chat_with">与%s聊天中</string>
+    <string name="send_success">发送成功</string>
+    <string name="send_error">发送失败</string>
 </resources>

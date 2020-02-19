@@ -6,14 +6,12 @@ package com.itheima.huanxinim.contract
  */
 interface ChatContract {
     interface Presenter : BasePresenter {
-        //fun login(userName: String, password: String)
+        fun sendMessage(contact: String, message: String)
     }
 
     interface View {
-//        fun onUserNameError()
-//        fun onPassWordError()
-//        fun onStartLogin()
-//        fun onLoggedInSuccess()
-//        fun onLoggedInFailed()
+        fun onStartSendMessage()
+        fun onSendMessageSuccess()
+        fun onSendMessageFailed()
     }
 }
