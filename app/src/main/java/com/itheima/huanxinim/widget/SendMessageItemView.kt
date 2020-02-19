@@ -45,12 +45,10 @@ class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : Rela
                 }
                 EMMessage.Status.SUCCESS->{
                     sendMessageProgress.visibility = View.GONE
-                    context.runOnUiThread { toast("发送成功") }
                 }
 
                 EMMessage.Status.FAIL->{
                     sendMessageProgress.visibility = View.VISIBLE
-                    context.runOnUiThread { toast("发送失败") }
                 }
             }
         }

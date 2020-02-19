@@ -17,7 +17,8 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp">
 
         <ProgressBar
                 android:id="@+id/sendMessageProgress"
@@ -36,6 +37,7 @@
                 android:text="你好吗？"
                 android:textSize="20sp"
                 android:layout_marginRight="8dp"/>
+
         <ImageView
                 android:id="@+id/sendImage"
                 android:layout_width="40dp"
