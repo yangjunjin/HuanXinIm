@@ -53,6 +53,11 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
             override fun onContactDeleted(p0: String?) {
                 presenter.loadContacts()
             }
+
+            //别人添加的消息的回调
+            override fun onContactAdded(p0: String?) {
+                presenter.loadContacts()
+            }
         })
 
         //SlideBar的监听
@@ -60,7 +65,7 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
             override fun onSectionChange(firstLetter: String) {
                 section.visibility = View.VISIBLE
                 section.text = firstLetter
-                recyclerView.smoothScrollToPosition(getPosition(firstLetter))
+                recyclerView?.smoothScrollToPosition(getPosition(firstLetter))
             }
 
             override fun onSlideFinish() {
