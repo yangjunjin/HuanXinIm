@@ -10,8 +10,38 @@
         android:orientation="vertical">
     <include layout="@layout/header"/>
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="聊天界面"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGrayLight"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+        <EditText
+                android:id="@+id/edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:imeOptions="actionSend"/>
+
+        <Button
+                android:id="@+id/send"
+                android:enabled="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_send"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="发送"
+                android:textColor="@color/colorBlack"/>
+    </LinearLayout>
 
 </LinearLayout>

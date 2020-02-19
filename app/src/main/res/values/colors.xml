@@ -7,4 +7,5 @@
     <color name="colorWhite">#ffffffff</color>
     <color name="colorGray" tools:ignore="MissingDefaultResource">#cccccc</color>
     <color name="colorGrayLight">#55cccccc</color>
+    <color name="colorBlue">#4876FF</color>
 </resources>
