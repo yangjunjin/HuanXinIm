@@ -10,6 +10,8 @@ import com.hyphenate.chat.EMClient
 import com.hyphenate.exceptions.HyphenateException
 import com.itheima.huanxinim.contract.ContactsContract
 import com.itheima.huanxinim.data.ContactListItem
+import com.itheima.huanxinim.data.db.Contact
+import com.itheima.huanxinim.data.db.IMDatabase
 import org.jetbrains.anko.doAsync
 
 
@@ -21,7 +23,10 @@ class ContactsPresenter(val view: ContactsContract.View) : ContactsContract.Pres
     val contactListItems = mutableListOf<ContactListItem>()
     //加载联系人的数据
     override fun loadContacts() {
+        //清空集合
         contactListItems.clear()
+        //清空数据库
+        IMDatabase.instance.deleteAllContacts()
         doAsync {
             try {
                 val usernames = EMClient.getInstance().contactManager().allContactsFromServer
@@ -31,6 +36,9 @@ class ContactsPresenter(val view: ContactsContract.View) : ContactsContract.Pres
                     val showFirstLetter = index==0||(index>0&&s[0]!=usernames[index-1][0])
                     val contactListItem = ContactListItem(s, s[0].toUpperCase(),showFirstLetter)
                     contactListItems.add(contactListItem)
+
+                    val contact = Contact(mutableMapOf("name" to s))
+                    IMDatabase.instance.saveContact(contact)
                 }
                 uiThread { view.onLoadContactsSuccess() }
             } catch (e: HyphenateException) {

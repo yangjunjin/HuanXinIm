@@ -13,6 +13,7 @@ import com.itheima.huanxinim.contract.ChatContract
 import com.itheima.huanxinim.contract.LoginContract
 import com.itheima.huanxinim.contract.SplashContract
 import com.itheima.huanxinim.data.AddFriendItem
+import com.itheima.huanxinim.data.db.IMDatabase
 import com.itheima.huanxinim.extentions.isValidPassword
 import com.itheima.huanxinim.extentions.isValidUserName
 import org.jetbrains.anko.doAsync
@@ -33,9 +34,18 @@ class AddFriendPresenter(val view: AddFriendContract.View) : AddFriendContract.P
             override fun done(p0: MutableList<BmobUser>?, p1: BmobException?) {
                 if (p1 == null) {
                     //数据的处理
+                    //创建AddFriendItem的集合
+                    val allContacts = IMDatabase.instance.getAllContacts()
                     doAsync {
                         p0?.forEach {
-                            val addFriendItem = AddFriendItem(it.username, it.createdAt)
+                            //对比是否已经添加过
+                            var isAdded = false
+                            for(contact in allContacts){
+                                if(contact.name==it.username){
+                                    isAdded = true
+                                }
+                            }
+                            val addFriendItem = AddFriendItem(it.username, it.createdAt,isAdded)
                             addFriendItems.add(addFriendItem)
                         }
                     }

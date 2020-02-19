@@ -17,6 +17,13 @@ class AddFriendListItemView(context: Context?, attrs: AttributeSet? = null) : Re
     fun bindView(item: AddFriendItem) {
         userName.text = item.userName
         time.text = item.timesTamp
+        if(item.isAdded){
+            addFriend.isEnabled = true
+            addFriend.text = "添加"
+        }else{
+            addFriend.isEnabled = false
+            addFriend.text = "已添加"
+        }
     }
 
     init {
