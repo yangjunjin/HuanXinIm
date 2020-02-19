@@ -11,4 +11,5 @@
     <string name="chat_with">与%s聊天中</string>
     <string name="send_success">发送成功</string>
     <string name="send_error">发送失败</string>
+    <string name="no_text_message">非文本消息</string>
 </resources>

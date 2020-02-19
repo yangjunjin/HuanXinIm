@@ -6,7 +6,7 @@
               android:padding="5dp">
 
     <TextView
-            android:id="@+id/timestamp"
+            android:id="@+id/receive_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -25,7 +25,7 @@
                 android:layout_height="40dp"
                 android:src="@mipmap/ic_launcher"/>
         <TextView
-                android:id="@+id/sendContent"
+                android:id="@+id/receiveMessage"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/receiveImage"
