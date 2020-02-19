@@ -16,8 +16,8 @@ class MessageListAdapter(val context:Context,val messages:List<EMMessage>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
-        val ITEM_TYPE_SEND_MESSAGE=0
-        val ITEM_TYPE_RECEIVE_MESSAGE=1
+        const val ITEM_TYPE_SEND_MESSAGE=0
+        const val ITEM_TYPE_RECEIVE_MESSAGE=1
     }
 
     override fun getItemViewType(position: Int): Int {
