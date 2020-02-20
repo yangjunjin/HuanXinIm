@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hyphenate.chat.EMConversation
+import com.itheima.huanxinim.ui.activity.ChatActivity
 import com.itheima.huanxinim.widget.ConversationListItemView
+import org.jetbrains.anko.startActivity
 
 /**
  * author : yangjunjin
@@ -22,7 +24,12 @@ class ConversationListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val conversationListItemView = holder.itemView as ConversationListItemView
-        conversationListItemView.bindView(conversations.get(position))
+        conversationListItemView.bindView(conversations[position])
+
+        val userName = conversations[position].conversationId()
+        conversationListItemView.setOnClickListener {
+            context.startActivity<ChatActivity>("userName" to userName)
+        }
     }
 
     class ConversationListItemViewHolder(itemView:View?):RecyclerView.ViewHolder(itemView!!)
