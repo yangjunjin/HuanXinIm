@@ -4,11 +4,13 @@
               android:layout_width="match_parent"
               android:gravity="center"
               android:layout_height="match_parent">
-    <TextView
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="首页"/>
+
+    <include layout="@layout/header"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
 </LinearLayout>

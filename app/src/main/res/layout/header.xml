@@ -7,7 +7,7 @@
         android:layout_height="50dp"
         tools:context=".ui.activity.LoginActivity"
         android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorBlue"
         android:gravity="center_vertical">
 
     <ImageView
