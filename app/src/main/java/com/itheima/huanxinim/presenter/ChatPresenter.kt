@@ -20,9 +20,9 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
 
     val messages = mutableListOf<EMMessage>()
 
-    override fun sendMessage(contact: String, message: String) {
+    override fun sendMessage(toChatUserName: String, message: String) {
         //创建一条消息
-        val emMessage = EMMessage.createTxtSendMessage(message, contact)
+        val emMessage = EMMessage.createTxtSendMessage(message, toChatUserName)
         emMessage.setMessageStatusCallback(object : EMCallBackAdapter() {
             override fun onSuccess() {
                 super.onSuccess()

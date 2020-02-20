@@ -14,8 +14,8 @@ import android.view.inputmethod.InputMethodManager
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    val progressDialog by lazy { ProgressDialog(this) }
-    val inputMethodManager by lazy{getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+    private val progressDialog by lazy { ProgressDialog(this) }
+    private val inputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +46,8 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 隐藏键盘
      */
-    fun hideSoftKeyboard(){
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken,0)
+    fun hideSoftKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
 }

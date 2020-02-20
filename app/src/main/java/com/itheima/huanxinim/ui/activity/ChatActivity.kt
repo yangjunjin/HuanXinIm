@@ -1,6 +1,7 @@
 package com.itheima.huanxinim.ui.activity
 
 import android.text.Editable
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hyphenate.EMMessageListener
 import com.hyphenate.chat.EMClient
@@ -36,7 +37,8 @@ class ChatActivity : BaseActivity(), ChatContract.View {
 
     //接收消息回调
     private var messageListener = object : EMMessageListenerAdapter() {
-        override fun onCmdMessageReceived(p0: MutableList<EMMessage>?) {
+        override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+            Log.e("messageListener==","收到消息")
             presenter.addMessage(username, p0)
             runOnUiThread { recyclerView.adapter?.notifyDataSetChanged() }
         }

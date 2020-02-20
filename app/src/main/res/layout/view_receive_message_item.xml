@@ -33,13 +33,6 @@
                 android:text="你好吗？"
                 android:textSize="20sp"
                 android:layout_marginLeft="8dp"/>
-        <ProgressBar
-                android:id="@+id/receiveMessageProgress"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/receiveMessage"
-                android:layout_marginLeft="8dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
 
     </RelativeLayout>
 

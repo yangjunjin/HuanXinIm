@@ -15,14 +15,14 @@ import com.itheima.huanxinim.extentions.isValidUserName
  */
 class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
     override fun login(userName: String, password: String) {
-        if(userName.isValidUserName()){
-            if(password.isValidPassword()){
+        if (userName.isValidUserName()) {
+            if (password.isValidPassword()) {
                 view.onStartLogin()
-                loginEaseMob(userName,password)
-            }else{
-             view.onPassWordError()
+                loginEaseMob(userName, password)
+            } else {
+                view.onPassWordError()
             }
-        }else{
+        } else {
             view.onUserNameError()
         }
     }
@@ -31,20 +31,20 @@ class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
      * IM的登陆
      */
     private fun loginEaseMob(userName: String, password: String) {
-        Log.e("loginEaseMob=","登陆")
-        EMClient.getInstance().login(userName,password,object :EMCallBackAdapter(){
+        Log.e("loginEaseMob=", "登陆")
+        EMClient.getInstance().login(userName, password, object : EMCallBackAdapter() {
             override fun onSuccess() {
                 super.onSuccess()
                 EMClient.getInstance().groupManager().loadAllGroups()
                 EMClient.getInstance().chatManager().loadAllConversations()
                 //回调在主线程
-               uiThread { view.onLoggedInSuccess() }
-                Log.e("loginEaseMob=","登陆成功")
+                uiThread { view.onLoggedInSuccess() }
+                Log.e("loginEaseMob=", "登陆成功")
             }
 
             override fun onError(p0: Int, p1: String?) {
                 super.onError(p0, p1)
-                Log.e("loginEaseMob=","登陆失败")
+                Log.e("loginEaseMob=", "登陆失败")
                 uiThread { view.onLoggedInFailed() }
             }
         })
