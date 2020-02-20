@@ -42,6 +42,11 @@ class ConversationFragment:BaseFragment() {
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadConversations()
+    }
+
     //接收消息回调
     private var messageListener = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {

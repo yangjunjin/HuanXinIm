@@ -50,6 +50,8 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
     override fun loadMessages(username: String) {
         doAsync {
             val conversation = EMClient.getInstance().chatManager().getConversation(username)
+            //设置所有的消息为已读
+            conversation.markAllMessagesAsRead()
             messages.addAll(conversation.allMessages)
             uiThread { view.onMessageLoaded() }
         }
