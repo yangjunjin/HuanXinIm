@@ -12,9 +12,8 @@ import com.itheima.huanxinim.R
  * date : 2020/2/20 16:21
  * 会话列表的item
  */
-class ConversationListItemView(context: Context?=null, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
-
+class ConversationListItemView(context: Context?, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
     init {
-        View.inflate(context, R.layout.view_conversation_item,this)
+        View.inflate(context, R.layout.view_conversation_item, this)
     }
 }

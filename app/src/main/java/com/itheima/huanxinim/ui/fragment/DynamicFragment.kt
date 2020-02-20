@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_dynamic.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 /**

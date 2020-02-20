@@ -1,9 +1,11 @@
 package com.itheima.huanxinim.ui.fragment
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.itheima.huanxinim.R
+import com.itheima.huanxinim.adapter.ConversationListAdapter
 import com.itheima.huanxinim.base.BaseFragment
-import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_conversation.*
 import kotlinx.android.synthetic.main.header.*
 
 /**
@@ -15,12 +17,17 @@ class ConversationFragment:BaseFragment() {
         return R.layout.fragment_conversation
     }
 
-    init {
+    override fun init() {
+        super.init()
         headerTitle.text = "消息"
         back.visibility = View.GONE
+
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = ConversationListAdapter(context)
+        }
     }
-
-
 }
 
 
