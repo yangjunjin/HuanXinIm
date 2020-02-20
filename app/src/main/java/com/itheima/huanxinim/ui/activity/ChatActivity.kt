@@ -33,6 +33,7 @@ class ChatActivity : BaseActivity(), ChatContract.View {
         initRecyclerView()
         send.setOnClickListener { send() }
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
+        presenter.loadMessages(username)
     }
 
     //接收消息回调
@@ -108,6 +109,14 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun onSendMessageFailed() {
         recyclerView.adapter?.notifyDataSetChanged()
         toast(R.string.send_error)
+    }
+
+    /**
+     * 初始化消息
+     */
+    override fun onMessageLoaded() {
+        recyclerView.adapter?.notifyDataSetChanged()
+        scrollToBottom()
     }
 
     override fun onDestroy() {

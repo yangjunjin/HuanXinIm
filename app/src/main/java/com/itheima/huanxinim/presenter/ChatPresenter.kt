@@ -10,12 +10,14 @@ import com.itheima.huanxinim.contract.LoginContract
 import com.itheima.huanxinim.contract.SplashContract
 import com.itheima.huanxinim.extentions.isValidPassword
 import com.itheima.huanxinim.extentions.isValidUserName
+import org.jetbrains.anko.doAsync
 
 /**
  * author : yangjunjin
  * date : 2020/2/15 11:49
  */
 class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
+
 
 
     val messages = mutableListOf<EMMessage>()
@@ -46,5 +48,14 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
         //获取跟联系人的会话，然后标记会话里面的消息为全部yidu
         val conversation = EMClient.getInstance().chatManager().getConversation(username)
         conversation.markAllMessagesAsRead()
+    }
+
+    //初始化消息
+    override fun loadMessages(username: String) {
+        doAsync {
+            val conversation = EMClient.getInstance().chatManager().getConversation(username)
+            messages.addAll(conversation.allMessages)
+            uiThread { view.onMessageLoaded() }
+        }
     }
 }
