@@ -38,9 +38,12 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     //接收消息回调
     private var messageListener = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {
-            Log.e("messageListener==","收到消息")
+            Log.e("messageListener==", "收到消息")
             presenter.addMessage(username, p0)
-            runOnUiThread { recyclerView.adapter?.notifyDataSetChanged() }
+            runOnUiThread {
+                recyclerView.adapter?.notifyDataSetChanged()
+                scrollToBottom()
+            }
         }
     }
 
@@ -85,6 +88,14 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun onStartSendMessage() {
         //通知RecyclerView刷新列表
         recyclerView.adapter?.notifyDataSetChanged()
+        scrollToBottom()
+    }
+
+    /**
+     * 滚动到底部
+     */
+    private fun scrollToBottom() {
+        recyclerView.scrollToPosition(presenter.messages.size - 1)
     }
 
     override fun onSendMessageSuccess() {
