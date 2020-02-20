@@ -32,6 +32,7 @@ class MainActivity : BaseActivity() {
             updateBottomBarUnRead()
         }
     }
+
     override fun onResume() {
         super.onResume()
         updateBottomBarUnRead()
