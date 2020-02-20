@@ -71,7 +71,9 @@ class IMApplication : Application() {
             }
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra("userName",it.conversationId())
-            val pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+//            val pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+            val taskStaBuilder = TaskStackBuilder.create(this).addParentStack(ChatActivity::class.java).addNextIntent(intent)
+            val pendingIntent = taskStaBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
             val notification = Notification.Builder(this)
                 .setContentTitle("头部文字")
                 .setContentText(contentText)
