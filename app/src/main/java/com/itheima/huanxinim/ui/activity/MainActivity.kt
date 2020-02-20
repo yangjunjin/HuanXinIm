@@ -1,6 +1,7 @@
 package com.itheima.huanxinim.ui.activity
 
 import android.util.Log
+import com.hyphenate.EMConnectionListener
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.itheima.huanxinim.R
@@ -8,6 +9,8 @@ import com.itheima.huanxinim.adapter.EMMessageListenerAdapter
 import com.itheima.huanxinim.base.BaseActivity
 import com.itheima.huanxinim.factory.FragmentFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity() {
     override fun getLayoutResId(): Int {
@@ -23,6 +26,21 @@ class MainActivity : BaseActivity() {
         }
 
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
+        EMClient.getInstance().addConnectionListener(connectListener)
+    }
+
+    //连接的监听
+    private var connectListener = object :EMConnectionListener{
+        override fun onConnected() {
+            Log.e("MainActivity==环信==","连接成功")
+        }
+
+        override fun onDisconnected(p0: Int) {
+            Log.e("MainActivity==环信==","其他设备登陆")
+            runOnUiThread { toast("其他设备登陆") }
+            startActivity<LoginActivity>()
+            finish()
+        }
     }
 
     //接收消息回调
