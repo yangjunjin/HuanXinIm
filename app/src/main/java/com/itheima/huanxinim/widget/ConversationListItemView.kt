@@ -10,6 +10,7 @@ import com.itheima.huanxinim.R
 /**
  * author : yangjunjin
  * date : 2020/2/20 16:21
+ * 会话列表的item
  */
 class ConversationListItemView(context: Context?=null, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
