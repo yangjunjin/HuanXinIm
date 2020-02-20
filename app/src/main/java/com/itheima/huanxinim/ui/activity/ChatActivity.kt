@@ -3,7 +3,7 @@ package com.itheima.huanxinim.ui.activity
 import android.text.Editable
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hyphenate.EMMessageListener
+import androidx.recyclerview.widget.RecyclerView
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.itheima.huanxinim.R
@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.toast
 
 class ChatActivity : BaseActivity(), ChatContract.View {
+
 
     val presenter = ChatPresenter(this)
     lateinit var username: String
@@ -53,6 +54,21 @@ class ChatActivity : BaseActivity(), ChatContract.View {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = MessageListAdapter(context, presenter.messages)
+
+            addOnScrollListener(object :RecyclerView.OnScrollListener(){
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    //当recyclerView是一个空闲状态
+                    //检查是否滑动到顶部，要加载更多的数据
+                    if(newState==RecyclerView.SCROLL_STATE_IDLE){
+                        //如果第一个可见的条目的位置是0，为滑动到顶部
+                        val linearLayoutManager = layoutManager as LinearLayoutManager
+                        if(linearLayoutManager.findFirstVisibleItemPosition()==0){
+                            presenter.loadMoreMessages(username)
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -117,6 +133,11 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun onMessageLoaded() {
         recyclerView.adapter?.notifyDataSetChanged()
         scrollToBottom()
+    }
+    //加载更多数据
+    override fun onMoreMessageLoaded(size: Int) {
+        recyclerView.adapter?.notifyDataSetChanged()
+        recyclerView.scrollToPosition(size)
     }
 
     override fun onDestroy() {

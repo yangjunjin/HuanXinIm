@@ -1,15 +1,9 @@
 package com.itheima.huanxinim.presenter
 
-import android.media.MediaPlayer
-import android.util.Log
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.itheima.huanxinim.adapter.EMCallBackAdapter
 import com.itheima.huanxinim.contract.ChatContract
-import com.itheima.huanxinim.contract.LoginContract
-import com.itheima.huanxinim.contract.SplashContract
-import com.itheima.huanxinim.extentions.isValidPassword
-import com.itheima.huanxinim.extentions.isValidUserName
 import org.jetbrains.anko.doAsync
 
 /**
@@ -18,7 +12,9 @@ import org.jetbrains.anko.doAsync
  */
 class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
 
-
+    companion object {
+        val PAGE_SIZE = 10
+    }
 
     val messages = mutableListOf<EMMessage>()
 
@@ -56,6 +52,19 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
             val conversation = EMClient.getInstance().chatManager().getConversation(username)
             messages.addAll(conversation.allMessages)
             uiThread { view.onMessageLoaded() }
+        }
+    }
+
+    /**
+     * 获取之前的消息
+     */
+    override fun loadMoreMessages(username: String) {
+        doAsync {
+            val conversation = EMClient.getInstance().chatManager().getConversation(username)
+            val startMsgId = messages[0].msgId
+            val loadMoreMsgFromDB = conversation.loadMoreMsgFromDB(startMsgId, PAGE_SIZE)
+            messages.addAll(0, loadMoreMsgFromDB)
+            uiThread { view.onMoreMessageLoaded(loadMoreMsgFromDB.size) }
         }
     }
 }
