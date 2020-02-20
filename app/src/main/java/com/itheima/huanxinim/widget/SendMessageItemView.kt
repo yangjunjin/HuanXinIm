@@ -1,7 +1,6 @@
 package com.itheima.huanxinim.widget
 
 import android.content.Context
-import android.graphics.drawable.AnimationDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
@@ -10,8 +9,6 @@ import com.hyphenate.chat.EMTextMessageBody
 import com.hyphenate.util.DateUtils
 import com.itheima.huanxinim.R
 import kotlinx.android.synthetic.main.view_send_message_item.view.*
-import org.jetbrains.anko.runOnUiThread
-import org.jetbrains.anko.toast
 import java.util.*
 
 /**
@@ -25,8 +22,8 @@ class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : Rela
         View.inflate(context, R.layout.view_send_message_item, this)
     }
 
-    fun bindView(emMessage: EMMessage) {
-        updateTimestamp(emMessage)
+    fun bindView(emMessage: EMMessage, showTimestamp: Boolean) {
+        updateTimestamp(emMessage,showTimestamp)
         updateMessage(emMessage)
         updateProgress(emMessage)
     }
@@ -68,7 +65,12 @@ class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : Rela
     /**
      * 更新时间的
      */
-    private fun updateTimestamp(emMessage: EMMessage) {
-        send_timestamp.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+    private fun updateTimestamp(emMessage: EMMessage, showTimestamp: Boolean) {
+        if(showTimestamp){
+            send_timestamp.visibility = View.VISIBLE
+            send_timestamp.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+        }else{
+            send_timestamp.visibility = View.GONE
+        }
     }
 }
