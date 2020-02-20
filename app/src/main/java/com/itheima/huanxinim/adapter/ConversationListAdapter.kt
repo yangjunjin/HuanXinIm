@@ -21,7 +21,8 @@ class ConversationListAdapter(
     override fun getItemCount(): Int=conversations.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        val conversationListItemView = holder.itemView as ConversationListItemView
+        conversationListItemView.bindView(conversations.get(position))
     }
 
     class ConversationListItemViewHolder(itemView:View?):RecyclerView.ViewHolder(itemView!!)

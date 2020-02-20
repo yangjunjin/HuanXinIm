@@ -40,6 +40,7 @@ class ConversationFragment:BaseFragment() {
      * 下载会话列表
      */
     private fun loadConversations() {
+        conversations.clear()
         doAsync {
             val allConversations = EMClient.getInstance().chatManager().allConversations
             conversations.addAll(allConversations.values)
