@@ -2,7 +2,10 @@ package com.itheima.huanxinim.app
 
 import android.app.ActivityManager
 import android.app.Application
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
@@ -10,6 +13,7 @@ import cn.bmob.v3.Bmob
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
+import com.hyphenate.chat.EMTextMessageBody
 import com.itheima.huanxinim.BuildConfig
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.adapter.EMMessageListenerAdapter
@@ -24,7 +28,6 @@ class IMApplication : Application() {
     companion object {
         lateinit var instance: IMApplication
     }
-
 
 
     override fun onCreate() {
@@ -50,11 +53,30 @@ class IMApplication : Application() {
     private var messageListener = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {
             Log.e("messageListener==", "收到消息")
-            if (isForeground()) {
+            if (isForeground()) {//前台
                 soundPool.play(duan, 1f, 1f, 0, 0, 1f)
-            } else {
+            } else {//后台
                 soundPool.play(yulu, 1f, 1f, 0, 0, 1f)
+                showNotification(p0)
             }
+        }
+    }
+
+    //通知栏
+    private fun showNotification(p0: MutableList<EMMessage>?) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        p0?.forEach {
+            var contentText = "IM的消息"
+            if (it.type == EMMessage.Type.TXT) {
+                contentText = (it.body as EMTextMessageBody).message
+            }
+            val notification = Notification.Builder(this)
+                .setContentTitle("头部文字")
+                .setContentText(contentText)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .notification
+            notificationManager.notify(1, notification)
         }
     }
 
