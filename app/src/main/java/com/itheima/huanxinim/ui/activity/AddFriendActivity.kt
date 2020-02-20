@@ -1,5 +1,6 @@
 package com.itheima.huanxinim.ui.activity
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itheima.huanxinim.R
 import com.itheima.huanxinim.adapter.AddFriendListAdapter
@@ -20,6 +21,7 @@ class AddFriendActivity : BaseActivity(), AddFriendContract.View{
     override fun init() {
         super.init()
         headerTitle.text = "添加联系人"
+        back.visibility = View.VISIBLE
         back.setOnClickListener { finish() }
 
         recyclerView.apply {
